@@ -20,7 +20,20 @@ export const startLogin = (email, password) => {
             }))
 
         }else {
-            Swal.fire('Error',body.message,'error');
+
+            if(body.errors) {
+                    body.errors.password ? 
+                    (
+                        Swal.fire('Error', body.errors.password.msg,'error')
+                    ): 
+                    (
+                        Swal.fire('Error', body.errors.email.msg,'error')
+                    )
+                 
+                
+            }else {
+                Swal.fire('Error', body.message,'error');
+            }
         }
 
     }
@@ -42,7 +55,24 @@ export const startRegister = (email, password, name) => {
             }))
 
         }else {
-            Swal.fire('Error',body.message,'error');
+            if(body.errors) {
+                body.errors.password ? 
+                (
+                    Swal.fire('Error', body.errors.password.msg,'error')
+                ): 
+                body.errors.email ? 
+                (
+                    Swal.fire('Error', body.errors.email.msg,'error') 
+                ) :
+                (
+                    Swal.fire('Error', body.errors.name.msg,'error') 
+                )
+             
+            
+            }else {
+                Swal.fire('Error', body.message,'error');
+            }
+            
         }
 
     }
